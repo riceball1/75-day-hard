@@ -95,7 +95,7 @@ button {
   flex-direction: column;
   justify-content: space-evenly;
   width: 60%;
-   margin: 10px auto;
+  margin: 10px auto;
 }
 
 .header-controls {
@@ -106,5 +106,11 @@ button {
 .list-footer {
   width: 60%;
   margin: 10px auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .list {
+    width: 80%;
+  }
 }
 </style>
