@@ -87,6 +87,7 @@ button {
   display: flex;
   justify-content: space-between;
   width: 60%;
+  flex-direction: column;
 }
 
 .header-subsection {
