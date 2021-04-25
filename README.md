@@ -22,6 +22,3 @@ yarn lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-
-### Setup 
-- How to Deploy Vue Github Pages - https://blog.logrocket.com/build-deploy-vue-js-app-github-pages/
