@@ -1,3 +1,10 @@
+
+/**
+ * NOTE: To use this on github, paste the following in package.json scripts:
+ * 
+    "deploy": "node scripts/gh-pages-deploy.js"
+ */
+
 /* Original Code Source: https://blog.logrocket.com/build-deploy-vue-js-app-github-pages/ */
 /* eslint-disable no-console */
 const execa = require("execa");
