@@ -3,40 +3,99 @@
     <header>
       <h1>{{ msg }}</h1>
       <div class="header-subsection">
-        <p>
-          A Tracking App for 75 Day Hard Challenge
-        </p>
+        <p>A Tracking App for 75 Day Hard Challenge</p>
         <div class="header-controls">
-          <button class="login">Login</button>
-          <button>Restart Challenge</button>
+          <button class="login" @click="login()">Login</button>
+          <button @click="resetChallenge()">Restart Challenge</button>
         </div>
       </div>
     </header>
 
     <div class="tracker">
-      <div><b>Total Days Completed</b> 0</div>
+      <div><b>Total Days Completed</b> {{ currentDay }}</div>
       <div>
         <b>Start Date</b> April 25, 2021 ➡️ <b>End Date</b> July 9, 2021
       </div>
     </div>
     <ul class="list">
-      <li>
-        <input type="checkbox" /> Two 45-minute workouts (at least one workout
-        outdoors) 🏋️
-      </li>
-      <li><input type="checkbox" /> Drink 1 gallon of water 🚰</li>
-      <li><input type="checkbox" /> No Alcohol or Cheat Meals ❌</li>
-      <li><input type="checkbox" /> Read 10 pages of non-fiction 📚</li>
-      <li><input type="checkbox" /> Follow a diet ✍️</li>
+      <li><input type="checkbox" /> {{ generalTasks[0] }}</li>
+      <li><input type="checkbox" /> {{ generalTasks[1] }}🚰</li>
+      <li><input type="checkbox" /> {{ generalTasks[2] }}</li>
+      <li><input type="checkbox" /> {{ generalTasks[3] }}</li>
+      <li><input type="checkbox" /> {{ generalTasks[4] }}</li>
     </ul>
     <div class="list-footer">
-      <button>Mark Day Completed</button>
+      <button @click="completeDay()">Mark Day Completed</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      generalTasks: [
+        "Two 45-minute workouts (at least one workout outdoors) 🏋️",
+        "Drink 1 gallon of water 🚰",
+        "No Alcohol or Cheat Meals ❌",
+        "Read 10 pages of non-fiction 📚",
+        "Follow a diet ✍️",
+      ],
+      currentDay: 0,
+      pages: [
+        {
+          pageNumber: 1,
+          tasks: [
+            "Two 45-minute workouts (at least one workout outdoors) 🏋️",
+            "Drink 1 gallon of water 🚰",
+            "No Alcohol or Cheat Meals ❌",
+            "Read 10 pages of non-fiction 📚",
+            "Follow a diet ✍️",
+          ],
+        },
+        {
+          pageNumber: 2,
+          tasks: [
+            "Two 45-minute workouts (at least one workout outdoors) 🏋️",
+            "Drink 1 gallon of water 🚰",
+            "No Alcohol or Cheat Meals ❌",
+            "Read 10 pages of non-fiction 📚",
+            "Follow a diet ✍️",
+          ],
+        },
+        {
+          pageNumber: 3,
+          tasks: [
+            "Two 45-minute workouts (at least one workout outdoors) 🏋️",
+            "Drink 1 gallon of water 🚰",
+            "No Alcohol or Cheat Meals ❌",
+            "Read 10 pages of non-fiction 📚",
+            "Follow a diet ✍️",
+          ],
+        },
+      ],
+    };
+  },
+  methods: {
+    completeDay: function () {
+      // check if all the checkboxes are checked
+      // show an alert before moving forward
+      // decide if we want to show the same tasks or different - if same, then we can remove the tasks and have a counter.
+      if (this.currentDay == 74) {
+        alert("You've completed the challenge");
+        // animation after the challenge is done?
+      } else {
+        this.currentDay = this.currentDay + 1;
+      }
+    },
+    resetChallenge: function () {
+      this.currentDay = 0;
+      alert("You're on day 0 now :P");
+    },
+    login: function () {
+      alert("Login not implemented");
+    },
+  },
   name: "MainPage",
   props: {
     msg: String,
