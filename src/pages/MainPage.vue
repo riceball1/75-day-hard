@@ -144,19 +144,6 @@ button {
   flex-direction: column;
 }
 
-.header-subsection {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 60%;
-  margin: 10px auto;
-}
-
-.header-controls {
-  display: flex;
-  justify-content: space-between;
-}
-
 .list-footer {
   width: 60%;
   margin: 10px auto;
