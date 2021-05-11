@@ -1,16 +1,6 @@
 <template>
   <div class="mainpage">
-    <header>
-      <h1>{{ msg }}</h1>
-      <div class="header-subsection">
-        <p>A Tracking App for 75 Day Hard Challenge</p>
-        <div class="header-controls">
-          <button class="login" @click="login()">Login</button>
-          <button @click="resetChallenge()">Restart Challenge</button>
-        </div>
-      </div>
-    </header>
-
+    <MainPageHeader @resetChallenge="handleResetChallenge" @login="handleLogin" />
     <div class="tracker">
       <div><b>Total Days Completed</b> {{ currentDay }}</div>
       <div>
@@ -31,7 +21,16 @@
 </template>
 
 <script>
+import MainPageHeader from "../components/MainPageHeader.vue";
+
 export default {
+  name: "MainPage",
+  props: {
+    msg: String,
+  },
+  components: {
+    MainPageHeader,
+  },
   data() {
     return {
       generalTasks: [
@@ -77,7 +76,7 @@ export default {
     };
   },
   methods: {
-    completeDay: function () {
+    completeDay: function() {
       // check if all the checkboxes are checked
       // show an alert before moving forward
       // decide if we want to show the same tasks or different - if same, then we can remove the tasks and have a counter.
@@ -88,17 +87,13 @@ export default {
         this.currentDay = this.currentDay + 1;
       }
     },
-    resetChallenge: function () {
+    handleResetChallenge: function() {
       this.currentDay = 0;
       alert("You're on day 0 now :P");
     },
-    login: function () {
+    handleLogin: function() {
       alert("Login not implemented");
     },
-  },
-  name: "MainPage",
-  props: {
-    msg: String,
   },
 };
 </script>
@@ -147,19 +142,6 @@ button {
   justify-content: space-between;
   width: 60%;
   flex-direction: column;
-}
-
-.header-subsection {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 60%;
-  margin: 10px auto;
-}
-
-.header-controls {
-  display: flex;
-  justify-content: space-between;
 }
 
 .list-footer {
