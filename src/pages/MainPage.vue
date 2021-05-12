@@ -1,6 +1,9 @@
 <template>
   <div class="mainpage">
-    <MainPageHeader @resetChallenge="handleResetChallenge" @login="handleLogin" />
+    <MainPageHeader
+      @resetChallenge="handleResetChallenge"
+      @login="handleLogin"
+    />
     <div class="tracker">
       <div><b>Total Days Completed</b> {{ currentDay }}</div>
       <div>
@@ -8,14 +11,12 @@
       </div>
     </div>
     <ul class="list">
-      <li><input type="checkbox" /> {{ generalTasks[0] }}</li>
-      <li><input type="checkbox" /> {{ generalTasks[1] }}🚰</li>
-      <li><input type="checkbox" /> {{ generalTasks[2] }}</li>
-      <li><input type="checkbox" /> {{ generalTasks[3] }}</li>
-      <li><input type="checkbox" /> {{ generalTasks[4] }}</li>
+      <li v-for='task in generalTasks' :key="task">
+     <input type='checkbox' v-bind:value='task.completed' v-model='task.completed' checked='task.completed' @change='checkTask()'>{{ task.task }}
+    </li>
     </ul>
-    <div class="list-footer">
-      <button @click="completeDay()">Mark Day Completed</button>
+    <div class="list-footer" v-if="currentDay !== 75">
+      <button @click="completeDay()" :disabled="tasksCompleted != 5">Mark Day Completed</button>
     </div>
   </div>
 </template>
@@ -31,16 +32,20 @@ export default {
   components: {
     MainPageHeader,
   },
+  created() {
+    // Fetch Tasks List on Mount
+    const headers = { "Content-Type": "application/json" };
+    fetch("http://localhost:3000/tasks", { headers })
+      .then((response) => response.json())
+      .then((data) => (this.generalTasks = data));
+  },
+
   data() {
     return {
-      generalTasks: [
-        "Two 45-minute workouts (at least one workout outdoors) 🏋️",
-        "Drink 1 gallon of water 🚰",
-        "No Alcohol or Cheat Meals ❌",
-        "Read 10 pages of non-fiction 📚",
-        "Follow a diet ✍️",
-      ],
+      generalTasks: [],
+      isCheckAll: false,
       currentDay: 0,
+      tasksCompleted: 0,
       pages: [
         {
           pageNumber: 1,
@@ -76,16 +81,25 @@ export default {
     };
   },
   methods: {
+    checkTask: function() {
+      this.tasksCompleted = this.tasksCompleted + 1;
+    },
     completeDay: function() {
       // check if all the checkboxes are checked
       // show an alert before moving forward
       // decide if we want to show the same tasks or different - if same, then we can remove the tasks and have a counter.
-      if (this.currentDay == 74) {
+  
+      this.currentDay = this.currentDay + 1;
+      for (let task in this.generalTasks) {
+        this.generalTasks[task].completed = false;
+      }
+      // reset tasksCompleted after each day is completed
+      this.tasksCompleted = 0;
+      if (this.currentDay === 75) {
         alert("You've completed the challenge");
         // animation after the challenge is done?
-      } else {
-        this.currentDay = this.currentDay + 1;
       }
+      
     },
     handleResetChallenge: function() {
       this.currentDay = 0;
