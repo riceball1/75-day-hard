@@ -11,11 +11,9 @@
       </div>
     </div>
     <ul class="list">
-      <li><input type="checkbox" @click="checkTask()"/> {{ generalTasks[0] }}</li>
-      <li><input type="checkbox" @click="checkTask()"/> {{ generalTasks[1] }}</li>
-      <li><input type="checkbox" @click="checkTask()"/> {{ generalTasks[2] }}</li>
-      <li><input type="checkbox" @click="checkTask()"/> {{ generalTasks[3] }}</li>
-      <li><input type="checkbox" @click="checkTask()"/> {{ generalTasks[4] }}</li>
+      <li v-for='task in generalTasks' :key="task">
+     <input type='checkbox' v-bind:value='task.completed' v-model='task.completed' checked='task.completed' @change='checkTask()'>{{ task.task }}
+    </li>
     </ul>
     <div class="list-footer" v-if="currentDay !== 75">
       <button @click="completeDay()" :disabled="tasksCompleted != 5">Mark Day Completed</button>
@@ -45,6 +43,7 @@ export default {
   data() {
     return {
       generalTasks: [],
+      isCheckAll: false,
       currentDay: 0,
       tasksCompleted: 0,
       pages: [
@@ -91,6 +90,11 @@ export default {
       // decide if we want to show the same tasks or different - if same, then we can remove the tasks and have a counter.
   
       this.currentDay = this.currentDay + 1;
+      for (let task in this.generalTasks) {
+        this.generalTasks[task].completed = false;
+      }
+      // reset tasksCompleted after each day is completed
+      this.tasksCompleted = 0;
       if (this.currentDay === 75) {
         alert("You've completed the challenge");
         // animation after the challenge is done?

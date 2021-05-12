@@ -8,11 +8,11 @@ app.use(cors());
 
 app.get('/tasks', (req, res) => {
   return res.send( [
-    "Two 45-minute workouts (at least one workout outdoors) 🏋️",
-    "Drink 1 gallon of water 🚰",
-    "No Alcohol or Cheat Meals ❌",
-    "Read 10 pages of non-fiction 📚",
-    "Follow a diet ✍️",
+    {task: "Two 45-minute workouts (at least one workout outdoors) 🏋️", completed: false},
+    {task:  "Drink 1 gallon of water 🚰", completed: false},
+    {task:  "No Alcohol or Cheat Meals ❌", completed: false},
+    {task:  "Read 10 pages of non-fiction 📚", completed: false},
+    {task:  "Follow a diet ✍️", completed: false},
   ]);
 });
 
