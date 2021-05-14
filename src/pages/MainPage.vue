@@ -1,6 +1,7 @@
 <template>
   <div class="mainpage">
     <MainPageHeader
+      msg="75 Day Hard Tracking App"
       @resetChallenge="handleResetChallenge"
       @login="handleLogin"
     />
@@ -11,12 +12,20 @@
       </div>
     </div>
     <ul class="list">
-      <li v-for='task in generalTasks' :key="task">
-     <input type='checkbox' v-bind:value='task.completed' v-model='task.completed' checked='task.completed' @change='checkTask()'>{{ task.task }}
-    </li>
+      <li v-for="task in generalTasks" :key="task">
+        <input
+          type="checkbox"
+          v-bind:value="task.completed"
+          v-model="task.completed"
+          checked="task.completed"
+          @change="checkTask()"
+        />{{ task.task }}
+      </li>
     </ul>
     <div class="list-footer" v-if="currentDay !== 75">
-      <button @click="completeDay()" :disabled="tasksCompleted != 5">Mark Day Completed</button>
+      <button @click="completeDay()" :disabled="tasksCompleted != 5">
+        Mark Day Completed
+      </button>
     </div>
   </div>
 </template>
@@ -81,14 +90,14 @@ export default {
     };
   },
   methods: {
-    checkTask: function() {
+    checkTask: function () {
       this.tasksCompleted = this.tasksCompleted + 1;
     },
-    completeDay: function() {
+    completeDay: function () {
       // check if all the checkboxes are checked
       // show an alert before moving forward
       // decide if we want to show the same tasks or different - if same, then we can remove the tasks and have a counter.
-  
+
       this.currentDay = this.currentDay + 1;
       for (let task in this.generalTasks) {
         this.generalTasks[task].completed = false;
@@ -99,13 +108,12 @@ export default {
         alert("You've completed the challenge");
         // animation after the challenge is done?
       }
-      
     },
-    handleResetChallenge: function() {
+    handleResetChallenge: function () {
       this.currentDay = 0;
       alert("You're on day 0 now :P");
     },
-    handleLogin: function() {
+    handleLogin: function () {
       alert("Login not implemented");
     },
   },
