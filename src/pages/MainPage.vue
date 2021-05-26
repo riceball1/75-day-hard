@@ -21,17 +21,20 @@
         Mark Day Completed
       </button>
     </div>
+    <Footer />
   </div>
 </template>
 
 <script>
 import MainPageHeader from "../components/MainPageHeader.vue";
+import Footer from '../components/Footer.vue';
 
 export default {
   name: "MainPage",
   props: {},
   components: {
     MainPageHeader,
+    Footer,
   },
   created() {
     // Fetch Tasks List on Mount
