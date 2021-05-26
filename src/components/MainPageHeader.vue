@@ -3,9 +3,9 @@
     <div class="counter"><h1>{{ currentDay }}</h1><p>/75 Days Hard Challenge</p></div>
     <div class="header-subsection">
         <button class="login" @click="handleLogin()">login</button>
-        <!-- <button @click="handleResetChallenge()">
+        <button @click="handleResetChallenge()" class="reset-button">
           reset
-        </button> -->
+        </button>
     </div>
   </header>
 </template>
@@ -34,7 +34,7 @@ header {
   justify-content: center;
   align-content: stretch;
   align-items: center;
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
 }
 h1 {
@@ -51,7 +51,12 @@ button {
   border-radius: 6px;
   text-transform: uppercase;
   border: 1px solid lightgray;
-  margin-left: 5px;
+  margin: 5px;
+  font-weight: bold;
+}
+.reset-button {
+  background-color: pink;
+  color: #000;
 }
 .counter {
   display: flex;
@@ -69,7 +74,6 @@ button {
   flex-direction: row;
   justify-content: flex-end;
   width: 100%;
-  /* margin: 10px auto; */
 }
 @media only screen and (max-width: 600px) {
   button {
@@ -77,7 +81,11 @@ button {
     height: 50px;
   }
   header {
-    width: 80%;
+    justify-content: space-between;
+  }
+  .header-subsection {
+    flex-direction: column;
+    align-items: flex-end;
   }
 }
 </style>

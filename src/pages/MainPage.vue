@@ -5,18 +5,19 @@
       @login="handleLogin"
       v-bind:currentDay="currentDay"
     />
-    <ul class="list">
-      <li v-for="task in generalTasks" :key="task">
-        <p
-          v-bind:value="task.completed"
-          v-bind:class="{'selected-item': task.completed}"
-          class="list-item"
-          @onclick="checkTask()"
-        >{{ task.task }}</p>
-      </li>
-    </ul>
+    <div class="list">
+      <p
+        class="list-item"
+        v-for="task in generalTasks"
+        :key="task"
+        v-bind:class="{ 'selected-item': task.completed }"
+        @click="checkTask(task.id)"
+      >
+        {{ task.task }}
+      </p>
+    </div>
     <div class="list-footer" v-if="currentDay !== 75">
-      <button @click="completeDay()" :disabled="tasksCompleted != 5">
+      <button @click="completeDay()" :disabled="tasksCompleted !== 5">
         Mark Day Completed
       </button>
     </div>
@@ -28,8 +29,7 @@ import MainPageHeader from "../components/MainPageHeader.vue";
 
 export default {
   name: "MainPage",
-  props: {
-  },
+  props: {},
   components: {
     MainPageHeader,
   },
@@ -46,12 +46,16 @@ export default {
   data() {
     return {
       generalTasks: [
-    {task: "Two 45-minute workouts (at least one workout outdoors) 🏋️", completed: false},
-    {task:  "Drink 1 gallon of water 🚰", completed: false},
-    {task:  "No Alcohol or Cheat Meals ❌", completed: false},
-    {task:  "Read 10 pages of non-fiction 📚", completed: false},
-    {task:  "Follow a diet ✍️", completed: false},
-  ],
+        {
+          task: "Two 45-minute workouts (at least one workout outdoors) 🏋️",
+          completed: false,
+          id: 0,
+        },
+        { task: "Drink 1 gallon of water 🚰", completed: false, id: 1 },
+        { task: "No Alcohol or Cheat Meals ❌", completed: false, id: 2 },
+        { task: "Read 10 pages of non-fiction 📚", completed: false, id: 3 },
+        { task: "Follow a diet ✍️", completed: false, id: 4 },
+      ],
       isCheckAll: false,
       currentDay: 0,
       tasksCompleted: 0,
@@ -90,8 +94,16 @@ export default {
     };
   },
   methods: {
-    checkTask: function () {
-      this.tasksCompleted = this.tasksCompleted + 1;
+    checkTask: function (taskID) {
+      if (!this.generalTasks[taskID].completed) {
+        this.generalTasks[taskID].completed = !this.generalTasks[taskID]
+          .completed;
+        this.tasksCompleted = this.tasksCompleted + 1;
+      } else {
+        this.generalTasks[taskID].completed = !this.generalTasks[taskID]
+          .completed;
+        this.tasksCompleted = this.tasksCompleted - 1;
+      }
     },
     completeDay: function () {
       // check if all the checkboxes are checked
@@ -125,32 +137,30 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-
 button {
-  width: 100px;
-  height: 40px;
+  width: 50%;
+  height: 80px;
+  border-radius: 6px;
+  font-size: 1.5rem;
+  color: white;
+  background-color: black;
+  border: 2px solid lightgray;
+}
+
+button:disabled {
+  background-color: lightgray;
+  color: darkgray;
 }
 
 .list {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
-  padding: 20px;
+  width: 80%;
+  padding: 0;
+  margin: 0;
   border-radius: 6px;
   font-size: 1.5rem;
-}
-
-li {
-  margin: 5px;
+  margin: 5px auto;
 }
 
 .list-item {
@@ -158,11 +168,12 @@ li {
   justify-content: center;
   align-items: center;
   border: 3px solid #42b983;
-  padding: 10px;
+  padding: 20px;
   border-radius: 6px;
   height: 100px;
   width: 200px;
-  margin: 0;
+  margin: 5px;
+  cursor: pointer;
 }
 
 .list-footer {
@@ -177,10 +188,16 @@ li {
 @media only screen and (max-width: 600px) {
   .list {
     flex-direction: column;
-    width: 80%;
   }
   .list-item {
+    width: 80%;
+    margin: 5px auto;
+  }
+
+  button {
     width: 100%;
+    height: 100px;
+    font-size: 1.5rem;
   }
 }
 </style>
