@@ -1,5 +1,5 @@
 <template>
-  <MainPage msg="75 Day Hard Challenge"/>
+  <MainPage />
 </template>
 
 <script>
@@ -19,7 +19,16 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #fff;
+  width: 100%;
+  height: 100%;
+}
+
+body, html {
+  background-color: #2c3e50;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 </style>

@@ -12,7 +12,6 @@ export const Primary = () => ({
 });
 
 Primary.args = {
-    msg: "75 Day Hard Tracking App",
     handleResetChallenge: () => console.log("challenge reset"),
     handleLogin: () => console.log("Login"),
 }

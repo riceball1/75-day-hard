@@ -1,16 +1,10 @@
 <template>
   <div class="mainpage">
     <MainPageHeader
-      msg="75 Day Hard Tracking App"
       @resetChallenge="handleResetChallenge"
       @login="handleLogin"
+      v-bind:currentDay="currentDay"
     />
-    <div class="tracker">
-      <div><b>Total Days Completed</b> {{ currentDay }}</div>
-      <div>
-        <b>Start Date</b> April 25, 2021 ➡️ <b>End Date</b> July 9, 2021
-      </div>
-    </div>
     <ul class="list">
       <li v-for="task in generalTasks" :key="task">
         <input
@@ -36,7 +30,6 @@ import MainPageHeader from "../components/MainPageHeader.vue";
 export default {
   name: "MainPage",
   props: {
-    msg: String,
   },
   components: {
     MainPageHeader,
@@ -46,12 +39,20 @@ export default {
     const headers = { "Content-Type": "application/json" };
     fetch("http://localhost:3000/tasks", { headers })
       .then((response) => response.json())
-      .then((data) => (this.generalTasks = data));
+      .then((data) => {
+        this.generalTasks = data;
+      });
   },
 
   data() {
     return {
-      generalTasks: [],
+      generalTasks: [
+    {task: "Two 45-minute workouts (at least one workout outdoors) 🏋️", completed: false},
+    {task:  "Drink 1 gallon of water 🚰", completed: false},
+    {task:  "No Alcohol or Cheat Meals ❌", completed: false},
+    {task:  "Read 10 pages of non-fiction 📚", completed: false},
+    {task:  "Follow a diet ✍️", completed: false},
+  ],
       isCheckAll: false,
       currentDay: 0,
       tasksCompleted: 0,
@@ -145,8 +146,8 @@ button {
 .list {
   width: 60%;
   margin: 10px auto;
-  background-color: #2c3e50;
-  color: #ffffff;
+  background-color: #fff;
+  color: #2c3e50;
   padding: 20px;
   border-radius: 6px;
 }
@@ -155,15 +156,6 @@ button {
   display: block;
   text-align: left;
   margin-bottom: 5px;
-}
-
-.tracker {
-  margin: 10px auto;
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-  width: 60%;
-  flex-direction: column;
 }
 
 .list-footer {
