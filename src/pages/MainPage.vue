@@ -145,8 +145,8 @@ button {
   height: 80px;
   border-radius: 6px;
   font-size: 1.5rem;
-  color: white;
-  background-color: black;
+  color: #000;
+  background-color: #42b983;
   border: 2px solid lightgray;
 }
 
