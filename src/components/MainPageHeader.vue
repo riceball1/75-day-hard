@@ -3,9 +3,9 @@
     <div class="counter"><h1>{{ currentDay }}</h1><p>/75 Days Hard Challenge</p></div>
     <div class="header-subsection">
         <button class="login" @click="handleLogin()">login</button>
-        <button @click="handleResetChallenge()">
+        <!-- <button @click="handleResetChallenge()">
           reset
-        </button>
+        </button> -->
     </div>
   </header>
 </template>
@@ -29,6 +29,14 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+header {
+  display: flex;
+  justify-content: center;
+  align-content: stretch;
+  align-items: center;
+  width: 60%;
+  margin: 0 auto;
+}
 h1 {
   font-size: 10rem;
   color:#42b983;
@@ -65,8 +73,11 @@ button {
 }
 @media only screen and (max-width: 600px) {
   button {
-    width: 100%;
+    width: 50%;
     height: 50px;
+  }
+  header {
+    width: 80%;
   }
 }
 </style>

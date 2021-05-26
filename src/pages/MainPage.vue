@@ -7,13 +7,12 @@
     />
     <ul class="list">
       <li v-for="task in generalTasks" :key="task">
-        <input
-          type="checkbox"
+        <p
           v-bind:value="task.completed"
-          v-model="task.completed"
-          checked="task.completed"
-          @change="checkTask()"
-        />{{ task.task }}
+          v-bind:class="{'selected-item': task.completed}"
+          class="list-item"
+          @onclick="checkTask()"
+        >{{ task.task }}</p>
       </li>
     </ul>
     <div class="list-footer" v-if="currentDay !== 75">
@@ -134,9 +133,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
-}
+
 
 button {
   width: 100px;
@@ -144,18 +141,28 @@ button {
 }
 
 .list {
-  width: 60%;
-  margin: 10px auto;
-  background-color: #fff;
-  color: #2c3e50;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   padding: 20px;
   border-radius: 6px;
+  font-size: 1.5rem;
 }
 
-.list > li {
-  display: block;
-  text-align: left;
-  margin-bottom: 5px;
+li {
+  margin: 5px;
+}
+
+.list-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #42b983;
+  padding: 10px;
+  border-radius: 6px;
+  height: 100px;
+  width: 200px;
+  margin: 0;
 }
 
 .list-footer {
@@ -163,9 +170,17 @@ button {
   margin: 10px auto;
 }
 
+.selected-item {
+  background-color: #000;
+}
+
 @media only screen and (max-width: 600px) {
   .list {
+    flex-direction: column;
     width: 80%;
+  }
+  .list-item {
+    width: 100%;
   }
 }
 </style>
