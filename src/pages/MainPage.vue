@@ -1,5 +1,5 @@
 <template>
-  <div class="mainpage">
+  <main class="mainpage">
     <MainPageHeader
       @resetChallenge="handleResetChallenge"
       @login="handleLogin"
@@ -22,7 +22,7 @@
       </button>
     </div>
     <Footer />
-  </div>
+  </main>
 </template>
 
 <script>
