@@ -18,7 +18,7 @@
     </div>
     <div class="list-footer" v-if="currentDay !== 75">
       <button @click="completeDay()" :disabled="tasksCompleted !== 5">
-        Mark Day Completed
+        Day Completed
       </button>
     </div>
     <Footer />
@@ -146,8 +146,9 @@ button {
   border-radius: 6px;
   font-size: 1.5rem;
   color: #000;
-  background-color: #42b983;
-  border: 2px solid lightgray;
+  background-color: #9E24AF;
+  border: 2px solid #000;
+  font-weight: bold;
 }
 
 button:disabled {
@@ -185,7 +186,10 @@ button:disabled {
 }
 
 .selected-item {
-  background-color: #000;
+  background-color: #42b983;
+  color: #000;
+  font-weight: bold;
+  border: 3px dashed #9E24AF;
 }
 
 @media only screen and (max-width: 600px) {
