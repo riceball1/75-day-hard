@@ -4,8 +4,23 @@
       @resetChallenge="handleResetChallenge"
       @login="handleLogin"
       v-bind:currentDay="currentDay"
+      v-bind:variationDays="variationDays"
     />
-    <div class="list">
+    <section class="selection" v-if="variationDays == 0">
+      <p>Select Your Level</p>
+      <div class="selection-options">
+        <div class="card-levels" @click="selectVariation('easy')">
+          <span class="number">25</span> Easy
+        </div>
+        <div class="card-levels" @click="selectVariation('medium')">
+          <span class="number">50</span> Medium
+        </div>
+        <div class="card-levels" @click="selectVariation('hard')">
+          <span class="number">75</span> Hard
+        </div>
+      </div>
+    </section>
+    <section v-if="variation" class="list">
       <p
         class="list-item"
         v-for="task in generalTasks"
@@ -15,8 +30,8 @@
       >
         {{ task.task }}
       </p>
-    </div>
-    <div class="list-footer" v-if="currentDay !== 75">
+    </section>
+    <div class="list-footer" v-if="currentDay !== 75 && variation">
       <button @click="completeDay()" :disabled="tasksCompleted !== 5">
         Day Completed
       </button>
@@ -27,7 +42,7 @@
 
 <script>
 import MainPageHeader from "../components/MainPageHeader.vue";
-import Footer from '../components/Footer.vue';
+import Footer from "../components/Footer.vue";
 
 export default {
   name: "MainPage",
@@ -36,15 +51,16 @@ export default {
     MainPageHeader,
     Footer,
   },
-  created() {
-    // Fetch Tasks List on Mount
-    const headers = { "Content-Type": "application/json" };
-    fetch("http://localhost:3000/tasks", { headers })
-      .then((response) => response.json())
-      .then((data) => {
-        this.generalTasks = data;
-      });
-  },
+  // @TODO: connect to api
+  // created() {
+  //   // Fetch Tasks List on Mount
+  //   const headers = { "Content-Type": "application/json" };
+  //   fetch("http://localhost:3000/tasks", { headers })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       this.generalTasks = data;
+  //     });
+  // },
 
   data() {
     return {
@@ -53,6 +69,7 @@ export default {
           task: "Two 45-minute workouts (at least one workout outdoors) 🏋️",
           completed: false,
           id: 0,
+          timesCompleted: 0,
         },
         { task: "Drink 1 gallon of water 🚰", completed: false, id: 1 },
         { task: "No Alcohol or Cheat Meals ❌", completed: false, id: 2 },
@@ -60,6 +77,8 @@ export default {
         { task: "Follow a diet ✍️", completed: false, id: 4 },
       ],
       isCheckAll: false,
+      variation: "",
+      variationDays: 0,
       currentDay: 0,
       tasksCompleted: 0,
       pages: [
@@ -97,6 +116,20 @@ export default {
     };
   },
   methods: {
+    selectVariation: function (variation) {
+      this.variation = variation;
+      switch (variation) {
+        case "easy":
+          this.variationDays = 25;
+          return;
+        case "medium":
+          this.variationDays = 50;
+          return;
+        case "hard":
+        default:
+          this.variationDays = 75;
+      }
+    },
     checkTask: function (taskID) {
       if (!this.generalTasks[taskID].completed) {
         this.generalTasks[taskID].completed = !this.generalTasks[taskID]
@@ -119,13 +152,15 @@ export default {
       }
       // reset tasksCompleted after each day is completed
       this.tasksCompleted = 0;
-      if (this.currentDay === 75) {
+      if (this.currentDay === this.variationDays) {
         alert("You've completed the challenge");
         // animation after the challenge is done?
       }
     },
     handleResetChallenge: function () {
       this.currentDay = 0;
+      this.variation = "";
+      this.variationDays = 0;
       alert("You're on day 0 now :P");
     },
     handleLogin: function () {
@@ -146,7 +181,7 @@ button {
   border-radius: 6px;
   font-size: 1.5rem;
   color: #000;
-  background-color: #9E24AF;
+  background-color: #9e24af;
   border: 2px solid #000;
   font-weight: bold;
 }
@@ -189,9 +224,41 @@ button:disabled {
   background-color: #42b983;
   color: #000;
   font-weight: bold;
-  border: 3px dashed #9E24AF;
+  border: 3px dashed #9e24af;
 }
 
+.selection {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 20%;
+  margin: 5px auto;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.selection-options {
+  display: flex;
+    justify-content: space-between;
+
+}
+
+.card-levels {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  margin: 5px;
+  border-radius: 6px;
+  border: 3px solid #9e24af;
+  font-size: 1rem;
+}
+
+.number {
+  display: block;
+  font-size: 2.5rem;
+  color: #9e24af;
+  font-weight: bold;
+}
 @media only screen and (max-width: 600px) {
   .list {
     flex-direction: column;

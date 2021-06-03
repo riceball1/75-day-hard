@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="counter"><h1>{{ currentDay }}</h1><p>/75 Days Hard Challenge</p></div>
+    <div class="counter"><h1>{{ currentDay }}</h1><p>/{{ variationDays}} Days Hard Challenge</p></div>
     <div class="header-subsection">
         <button class="login" @click="handleLogin()">login</button>
         <button @click="handleResetChallenge()" class="reset-button">
@@ -15,6 +15,7 @@ export default {
   name: "MainPageHeader",
   props: {
     currentDay: Number,
+    variationDays: Number,
   },
   methods: {
     handleResetChallenge() {
