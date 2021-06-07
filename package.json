@@ -19,7 +19,9 @@
     "express": "^4.17.1",
     "firebase": "^8.4.3",
     "uuid": "^8.3.2",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.8",
+    "vuex": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.14.2",
